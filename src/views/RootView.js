@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useResizeDetector } from "react-resize-detector";
 
 import { Conatainer, Box, Margin } from "./../components/base/Grid.styled";
 import { Navbar } from "./../components/navbar/Navbar";
@@ -14,6 +15,20 @@ export function RootView() {
   const [isAnimated, setIsAnimated] = useState(false);
   const [isOpenModal, setOpenModal] = useState(false);
 
+  const { width, ref } = useResizeDetector({
+    handleHeight: false,
+    refreshRate: 500,
+    refreshMode: "debounce",
+  });
+
+  useEffect(() => {
+    if (width < 900) {
+      alert(
+        "Projekt nie jest responsywny, zalecana szerokość ekranu to minimum 900 px !"
+      );
+    }
+  }, [width]);
+
   const handleAnimations = () => {
     setIsAnimated(true);
     setTimeout(() => {
@@ -25,6 +40,7 @@ export function RootView() {
     <>
       <Navbar />
       <Margin mb="70px" />
+      <div ref={ref}></div>
       <Conatainer>
         <Box display="flex" flexWrap="wrap">
           <Box flexBasis="50%">
