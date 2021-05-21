@@ -30,11 +30,11 @@ export function Modal({ setOpenModal }) {
   function sortOrderReducer(state, action) {
     switch (action.type) {
       case "unsorted":
-        return "asc";
-      case "asc":
         return "desc";
       case "desc":
         return "asc";
+      case "asc":
+        return "desc";
       default:
         throw new Error();
     }
